@@ -16,9 +16,9 @@
   {%>
   <a href="member/Login.jsp">로그인</a>
   <% }
-  else{
-    System.out.println(id); %>
+  else{ %>
   <a href="/minihome/Logout">로그아웃</a>
+  <a href="/minihome/Visit">방명록</a>
   <% } %>
   </body>
 </html>
