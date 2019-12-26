@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <div><input type="submit" value="로그인"></div>
-                    <div><a href="#">회원가입</a></div>
+                    <div><a href="SignUpForm.jsp">회원가입</a></div>
                 </div>
             </form>
         </div>

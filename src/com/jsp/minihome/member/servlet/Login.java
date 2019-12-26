@@ -1,6 +1,6 @@
 package com.jsp.minihome.member.servlet;
 
-import com.jsp.minihome.dao.MemberDAO;
+import com.jsp.minihome.member.dao.MemberDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

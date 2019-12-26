@@ -1,4 +1,6 @@
-package com.jsp.minihome.dao;
+package com.jsp.minihome.member.dao;
+
+import com.jsp.minihome.member.vo.MemberVO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -64,4 +66,42 @@ public class MemberDAO
             this.disConnect(con,pstmt,rs);
         }
     }
+
+    public boolean signUp(MemberVO memberVO)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try
+        {
+            con = this.getConnection();
+            String sql = "INSERT INTO MINIHOME_MEMBER VALUES(?,?,?,?,?,'N', null, 1, 1)";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, memberVO.getUserId());
+            pstmt.setString(2, memberVO.getUserPassword());
+            pstmt.setString(3, memberVO.getUserName());
+            pstmt.setString(4, memberVO.getUserGender());
+            pstmt.setString(5, memberVO.getUserPhone());
+            int go = pstmt.executeUpdate();
+
+            if(go > 0)
+                return true;
+            else
+                return false;
+        }
+        catch (SQLException e)
+        {
+            System.out.println("MemberDAO/signUp: "+e.getMessage());
+            return false;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+
+
+
 }
