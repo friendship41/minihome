@@ -2,13 +2,14 @@ package com.jsp.minihome.member.servlet;
 
 import com.jsp.minihome.dao.MemberDAO;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.lang.reflect.Member;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet
@@ -24,7 +25,7 @@ public class Login extends HttpServlet
 //        비밀번호가 없다면
         if(dbPw == null)
         {
-            response.sendRedirect("/error/LoginError.jsp");
+            request.setAttribute("msg","존재하지 않는 아이디 입니다.");
         }
 //        비밀번호가 존재
         else
@@ -32,14 +33,19 @@ public class Login extends HttpServlet
 //            비밀번호가 같다면
             if(formPw.equals(dbPw))
             {
-                
+                HttpSession session = request.getSession();
+                session.setAttribute("id",formId);
+                response.sendRedirect("/minihome");
+                return;
             }
 //            비밀번호가 다르다면
             else
             {
-                response.sendRedirect("/error/LoginError.jsp");
+                request.setAttribute("msg","잘못된 비밀번호 입니다.");
             }
         }
+        RequestDispatcher disp = request.getRequestDispatcher("/error/LoginError.jsp");
+        disp.forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

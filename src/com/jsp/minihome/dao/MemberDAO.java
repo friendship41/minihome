@@ -51,12 +51,12 @@ public class MemberDAO
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, userId);
             rs = pstmt.executeQuery();
-
+            rs.next();
             return rs.getString("USER_PASSWORD");
         }
         catch (SQLException e)
         {
-            System.out.println("getPassword: "+e.getMessage());
+            System.out.println("MemberDAO/getPassword: "+e.getMessage());
             return null;
         }
         finally

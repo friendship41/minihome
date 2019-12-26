@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/">
-    <Resource name = "jdbc/miniHome" auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521/XEPDB1" username="stage41" password="qwe" maxTotal="8" maxIdle="4" maxWait="-1"/>
+    <Resource name = "jdbc/miniHome" auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521/XEPDB1" username="stage41" password="qwe" maxTotal="8" maxIdle="4" maxWaitMillis="-1"/>
 </Context>

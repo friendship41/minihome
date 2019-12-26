@@ -8,9 +8,9 @@
           <element id="module-output" name="minihome" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="JAX-WS-Apache Axis" />
           <element id="file-copy" path="X:/4_drivers/ojdbc8.jar" />
           <element id="library" level="project" name="apache_dbconnection_pool" />
+          <element id="library" level="project" name="JAX-WS-Apache Axis" />
         </element>
       </element>
     </root>
