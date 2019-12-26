@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="minihome:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/minihome_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="minihome/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="minihome" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="JAX-WS-Apache Axis" />
+          <element id="file-copy" path="X:/4_drivers/ojdbc8.jar" />
+          <element id="library" level="project" name="apache_dbconnection_pool" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

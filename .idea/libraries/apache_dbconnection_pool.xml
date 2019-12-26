@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="apache_dbconnection_pool">
+    <CLASSES>
+      <root url="jar://X:/4_drivers/apache_dbconnection_pool/commons-collections4-4.4.jar!/" />
+      <root url="jar://X:/4_drivers/apache_dbconnection_pool/commons-dbcp2-2.7.0.jar!/" />
+      <root url="jar://X:/4_drivers/apache_dbconnection_pool/commons-pool2-2.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
