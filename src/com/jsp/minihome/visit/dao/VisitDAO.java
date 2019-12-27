@@ -1,5 +1,6 @@
 package com.jsp.minihome.visit.dao;
 
+import com.jsp.minihome.visit.servlet.Visit;
 import com.jsp.minihome.visit.vo.VisitVO;
 
 import javax.naming.Context;
@@ -15,6 +16,22 @@ import java.util.List;
 
 public class VisitDAO
 {
+    private VisitDAO()
+    {
+    }
+
+    private static VisitDAO visitDAO;
+
+    public static VisitDAO getInstance(){
+        if(visitDAO == null)
+        {
+            synchronized (VisitDAO.class){
+                visitDAO = new VisitDAO();
+            }
+        }
+        return visitDAO;
+    }
+
     private Connection getConnection()
     {
         Connection con = null;
@@ -38,7 +55,7 @@ public class VisitDAO
         try {if(con!=null && !con.isClosed()){con.close();}}catch (SQLException e){}
     }
 
-    public List<VisitVO> getVisitList(String userId)
+    public List<VisitVO> selectAllVisit(String userId)
     {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -64,7 +81,7 @@ public class VisitDAO
         }
         catch (SQLException e)
         {
-            System.out.println("VisitDAO/getVisitList: "+e.getMessage());
+            System.out.println("VisitDAO/selectAllVisit: "+e.getMessage());
             return null;
         }
         finally

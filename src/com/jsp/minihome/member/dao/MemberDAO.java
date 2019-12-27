@@ -16,6 +16,22 @@ public class MemberDAO
 {
 //    DBConnectionPool pool = DBConnectionPool.getInstance();
 
+    private static MemberDAO memberDAO;
+
+    private MemberDAO()
+    {}
+
+    public static MemberDAO getInstance()
+    {
+        if(memberDAO == null)
+        {
+            synchronized (MemberDAO.class){
+                memberDAO = new MemberDAO();
+            }
+        }
+        return memberDAO;
+    }
+
     private Connection getConnection()
     {
         Connection con = null;
@@ -39,7 +55,7 @@ public class MemberDAO
         try {if(con!=null && !con.isClosed()){con.close();}}catch (SQLException e){}
     }
 
-    public String getPassword(String userId)
+    public String selectUserPassword(String userId)
     {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -58,7 +74,7 @@ public class MemberDAO
         }
         catch (SQLException e)
         {
-            System.out.println("MemberDAO/getPassword: "+e.getMessage());
+            System.out.println("MemberDAO/selectUserPassword: "+e.getMessage());
             return null;
         }
         finally
@@ -67,7 +83,7 @@ public class MemberDAO
         }
     }
 
-    public boolean signUp(MemberVO memberVO)
+    public boolean insertMember(MemberVO memberVO)
     {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -92,7 +108,7 @@ public class MemberDAO
         }
         catch (SQLException e)
         {
-            System.out.println("MemberDAO/signUp: "+e.getMessage());
+            System.out.println("MemberDAO/insertMember: "+e.getMessage());
             return false;
         }
         finally

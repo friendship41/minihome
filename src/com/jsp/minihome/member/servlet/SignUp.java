@@ -1,6 +1,7 @@
 package com.jsp.minihome.member.servlet;
 
 import com.jsp.minihome.member.dao.MemberDAO;
+import com.jsp.minihome.member.service.MemberService;
 import com.jsp.minihome.member.vo.MemberVO;
 
 import javax.servlet.RequestDispatcher;
@@ -28,8 +29,9 @@ public class SignUp extends HttpServlet
         if(!phone.equals(""))
             user.setUserPhone(phone);
 
-        MemberDAO memberDAO = new MemberDAO();
-        boolean result = memberDAO.signUp(user);
+
+        MemberService memberService = new MemberService();
+        boolean result = memberService.signUp(user);
         if(result)
         {
             request.setAttribute("msg", "회원가입 성공!");
@@ -40,9 +42,9 @@ public class SignUp extends HttpServlet
         {
             request.setAttribute("msg", "회원가입 실패!");
         }
-
         RequestDispatcher disp = request.getRequestDispatcher("commonPage/MsgGoHome.jsp");
         disp.forward(request, response);
+        return;
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

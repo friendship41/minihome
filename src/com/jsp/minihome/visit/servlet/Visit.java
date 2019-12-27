@@ -2,6 +2,7 @@ package com.jsp.minihome.visit.servlet;
 
 import com.jsp.minihome.member.dao.MemberDAO;
 import com.jsp.minihome.visit.dao.VisitDAO;
+import com.jsp.minihome.visit.service.VisitService;
 import com.jsp.minihome.visit.vo.VisitVO;
 
 import javax.servlet.RequestDispatcher;
@@ -32,14 +33,16 @@ public class Visit extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         request.setCharacterEncoding("utf-8");
+//        여기 세션말고 현재 페이지 아이디로..
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("id");
+
+
         if(id != null)
         {
-            System.out.println("/visit-id: "+id);
-            VisitDAO visitDAO = new VisitDAO();
-            List<VisitVO> list = visitDAO.getVisitList(id);
-            System.out.println("/visit-id: "+list.get(0).getUserName());
+            VisitService visitService = new VisitService();
+            List<VisitVO> list = visitService.getVisitList(id);
+
 //            여기서 널값 나오면 에러페이지 보내는거 작업해야함
             if(list != null)
                 request.setAttribute("visitList", list);
@@ -47,5 +50,6 @@ public class Visit extends HttpServlet
         }
         RequestDispatcher disp = request.getRequestDispatcher("/visit/VisitLog.jsp");
         disp.forward(request, response);
+        return;
     }
 }
