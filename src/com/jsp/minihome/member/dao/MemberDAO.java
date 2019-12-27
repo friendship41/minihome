@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberDAO
 {
@@ -118,6 +120,40 @@ public class MemberDAO
     }
 
 
+    public List<MemberVO> selectAllMember(String idOrName)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<MemberVO> memberVOList = new ArrayList<>();
 
+        try
+        {
+            con = this.getConnection();
+            String sql = "SELECT USER_ID, USER_NAME, USER_GENDER FROM MINIHOME_MEMBER WHERE USER_ID=? OR USER_NAME=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, idOrName);
+            pstmt.setString(2, idOrName);
+            rs = pstmt.executeQuery();
+            while(rs.next())
+            {
+                MemberVO memberVO = new MemberVO();
+                memberVO.setUserId(rs.getString("USER_ID"));
+                memberVO.setUserName(rs.getString("USER_NAME"));
+                memberVO.setUserGender(rs.getString("USER_GENDER"));
+                memberVOList.add(memberVO);
+            }
+            return memberVOList;
+        }
+        catch (SQLException e)
+        {
+            System.out.println("MemberDAO/insertMember: "+e.getMessage());
+            return null;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
 
 }
