@@ -17,4 +17,10 @@ public class FriendService
         return memberDAO.selectAllMember(idOrName);
     }
 
+    public int requestAddFriend(String userId, String friendId)
+    {
+        friendDAO = FriendDAO.getInstance();
+        return friendDAO.insertFriend(userId, friendId);
+    }
+
 }

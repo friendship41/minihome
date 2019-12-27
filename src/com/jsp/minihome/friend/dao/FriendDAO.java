@@ -1,5 +1,7 @@
 package com.jsp.minihome.friend.dao;
 
+import com.jsp.minihome.member.vo.MemberVO;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -8,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FriendDAO
@@ -52,6 +55,57 @@ public class FriendDAO
         try {if(con!=null && !con.isClosed()){con.close();}}catch (SQLException e){}
     }
 
+    public int insertFriend(String userId, String friendId)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
+        try
+        {
+            con = this.getConnection();
+            con.setAutoCommit(false);
+
+            String sql1 = "SELECT * FROM MINIHOME_FRIEND WHERE (USER_ID=? AND FRIEND_ID=?) OR (FRIEND_ID=? AND USER_ID=?)";
+            String sql2 = "INSERT INTO MINIHOME_FRIEND VALUES(MINIHOME_FRIEND__TABLE_NUM_SEQ.NEXTVAL, ?, ?, 'D')";
+
+            pstmt = con.prepareStatement(sql1);
+            pstmt.setString(1, userId);
+            pstmt.setString(2, friendId);
+            pstmt.setString(3, userId);
+            pstmt.setString(4, friendId);
+            rs = pstmt.executeQuery();
+
+            if(!rs.next())
+            {
+                pstmt = con.prepareStatement(sql2);
+                pstmt.setString(1, userId);
+                pstmt.setString(2, friendId);
+                int result = pstmt.executeUpdate();
+
+                if(result != 0)
+                {
+                    con.commit();
+                    return 1;   // 요청 성공
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            con.rollback();
+            return 2;   // 이미 요청이 존재하거나 친구임
+        }
+        catch (SQLException e)
+        {
+            System.out.println("FriendDAO/insertFriend: "+e.getMessage());
+            return -1;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
 
 }
+

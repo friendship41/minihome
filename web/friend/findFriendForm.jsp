@@ -12,10 +12,16 @@
 <html>
 <head>
     <title>친구 찾기</title>
+    <script>
+        function goHome() {
+            location.href="/minihome";
+        }
+    </script>
 </head>
 <body>
     <div>
         <div>
+            <div><button onclick="goHome()">홈으로</button></div>
             <form method="get" action="/minihome/FindFriend">
                 <div>아이디 또는 이름: <input type="text" name="friendId" placeholder="아이디나 이름을 입력해 주세요"></div>
                 <div><input type="submit" value="찾기"></div>
