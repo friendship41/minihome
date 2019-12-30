@@ -29,4 +29,21 @@ public class FriendService
         return friendDAO.selectFriendRequestList(userId);
     }
 
+    public boolean replyFriendRequest(String userId, String friendId, String tf)
+    {
+        friendDAO = FriendDAO.getInstance();
+        if(tf.equalsIgnoreCase("t"))
+        {
+            return friendDAO.updateFriendAgree(userId, friendId);
+        }
+        else if(tf.equalsIgnoreCase("f"))
+        {
+            return friendDAO.deleteFriendRequest(userId, friendId);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

@@ -34,13 +34,14 @@
         <div>
 
         </div>
+
         <% if(requestFriendList != null){ %>
         <div>
             <div>친구 요청 목록</div>
             <% for(MemberVO requestFriend : requestFriendList){
                 String accept = "/minihome/ResponseAddFriend?friendId="+requestFriend.getUserId()+"&res=t";
                 String dis = "/minihome/ResponseAddFriend?friendId="+requestFriend.getUserId()+"&res=f";%>
-                <div>아이디: <%=requestFriend.getUserId()%>, 이름: <%=requestFriend.getUserName()%>, 성별: <%=requestFriend.getUserGender()%>&nbsp&nbsp<button onclick="responseAddFriend(<%=accept%>)">수락</button><button onclick="responseAddFriend(<%=dis%>)">거절</button></div>
+                <div>아이디: <%=requestFriend.getUserId()%>, 이름: <%=requestFriend.getUserName()%>, 성별: <%=requestFriend.getUserGender()%>&nbsp&nbsp<button onclick="responseAddFriend('<%=accept%>')">수락</button><button onclick="responseAddFriend('<%=dis%>')">거절</button></div>
             <% } %>
         </div>
         <% } %>

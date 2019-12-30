@@ -148,5 +148,85 @@ public class FriendDAO
         }
     }
 
+
+    public boolean updateFriendAgree(String userId, String friendId)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try
+        {
+            con = this.getConnection();
+
+            String sql = "UPDATE MINIHOME_FRIEND SET AGREE_STATE='A' WHERE USER_ID=? AND FRIEND_ID=?";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.setString(2, friendId);
+
+            int result = pstmt.executeUpdate();
+
+            if(result == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("FriendDAO/updateFriendAgree: "+e.getMessage());
+            return false;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+    public boolean deleteFriendRequest(String userId, String friendId)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try
+        {
+            con = this.getConnection();
+
+            String sql = "DELETE MINIHOME_FRIEND WHERE USER_ID=? AND FRIEND_ID=?";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, userId);
+            pstmt.setString(2, friendId);
+
+            int result = pstmt.executeUpdate();
+
+            if(result == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("FriendDAO/deleteFriendRequest: "+e.getMessage());
+            return false;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+
 }
 

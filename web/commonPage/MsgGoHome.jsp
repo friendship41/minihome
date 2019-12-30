@@ -13,6 +13,7 @@
     <script>
         function alertMessage(msg) {
             alert(msg);
+            location.href = document.referrer;
             location.href="/minihome";
         }
         alertMessage("<%= mssg%>");
