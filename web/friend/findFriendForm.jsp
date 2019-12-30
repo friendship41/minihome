@@ -28,18 +28,18 @@
             </form>
         </div>
         <% if(friendList != null) {%>
-        <div>
-            <% if(success.equals("f")){%>
-            <div>일치하는 정보가 없습니다.</div>
-            <% }
-            else{%>
-                <div>검색 결과</div>
-                <% for(MemberVO friend : friendList){
-                    String addFriendLink = "/minihome/AddFriend?friendId="+friend.getUserId();%>
-                    <div><a href="<%=addFriendLink%>">아이디: <%=friend.getUserId()%>, 이름: <%=friend.getUserName()%>, 성별: <%=friend.getUserGender()%></a></div>
+            <div>
+                <% if(success.equals("f")){%>
+                    <div>일치하는 정보가 없습니다.</div>
                 <% }
-            } %>
-        </div>
+                else{%>
+                    <div>검색 결과</div>
+                    <% for(MemberVO friend : friendList){
+                        String addFriendLink = "/minihome/AddFriend?friendId="+friend.getUserId();%>
+                        <div><a href="<%=addFriendLink%>">아이디: <%=friend.getUserId()%>, 이름: <%=friend.getUserName()%>, 성별: <%=friend.getUserGender()%></a></div>
+                    <% }
+                } %>
+            </div>
         <% } %>
     </div>
 </body>

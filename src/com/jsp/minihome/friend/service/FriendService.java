@@ -23,4 +23,10 @@ public class FriendService
         return friendDAO.insertFriend(userId, friendId);
     }
 
+    public List<MemberVO> getFriendRequestList(String userId)
+    {
+        friendDAO = FriendDAO.getInstance();
+        return friendDAO.selectFriendRequestList(userId);
+    }
+
 }

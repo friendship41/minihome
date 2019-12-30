@@ -18,6 +18,7 @@
   <% }
   else{ %>
   <a href="/minihome/Logout">로그아웃</a>
+  <a href="/minihome/FriendList">친구목록</a>
   <a href="/minihome/friend/findFriendForm.jsp">친구추가</a>
   <a href="/minihome/Visit">방명록</a>
   <% } %>

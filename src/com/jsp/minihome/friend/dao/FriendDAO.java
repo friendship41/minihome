@@ -107,5 +107,46 @@ public class FriendDAO
         }
     }
 
+
+    public List<MemberVO> selectFriendRequestList(String userId)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<MemberVO> list = new ArrayList<>();
+
+        try
+        {
+            con = this.getConnection();
+
+            String sql = "SELECT M.USER_ID, M.USER_NAME, M.USER_GENDER FROM MINIHOME_FRIEND F JOIN MINIHOME_MEMBER M ON F.FRIEND_ID = M.USER_ID WHERE F.USER_ID=? AND F.AGREE_STATE='D'";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, userId);
+
+            rs = pstmt.executeQuery();
+
+            while(rs.next())
+            {
+                MemberVO memberVO = new MemberVO();
+                memberVO.setUserId(rs.getString("USER_ID"));
+                memberVO.setUserName(rs.getString("USER_NAME"));
+                memberVO.setUserGender(rs.getString("USER_GENDER"));
+                list.add(memberVO);
+            }
+            return list;
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("FriendDAO/getFriendRequestList: "+e.getMessage());
+            return null;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
 }
 
