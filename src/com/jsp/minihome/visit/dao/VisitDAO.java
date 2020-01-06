@@ -65,13 +65,14 @@ public class VisitDAO
         try
         {
             con = this.getConnection();
-            String sql = "SELECT M.USER_NAME, V.CONTENTS, TO_CHAR(V.WRITE_DATE,'YY/MM/DD HH24:MI') WRITE_DATE FROM MINIHOME_VISIT V JOIN MINIHOME_MEMBER M ON V.WRITER_ID = M.USER_ID WHERE V.USER_ID=? ORDER BY V.WRITE_DATE DESC";
+            String sql = "SELECT V.VISIT_TABLE_NUM, M.USER_NAME, V.CONTENTS, TO_CHAR(V.WRITE_DATE,'YY/MM/DD HH24:MI') WRITE_DATE FROM MINIHOME_VISIT V JOIN MINIHOME_MEMBER M ON V.WRITER_ID = M.USER_ID WHERE V.USER_ID=? ORDER BY V.WRITE_DATE DESC";
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, userId);
             rs = pstmt.executeQuery();
             while(rs.next())
             {
                 VisitVO visitVO = new VisitVO();
+                visitVO.setVisitNo(rs.getInt("VISIT_TABLE_NUM"));
                 visitVO.setUserName(rs.getString("USER_NAME"));
                 visitVO.setContents(rs.getString("CONTENTS"));
                 visitVO.setWriteDate(rs.getString("WRITE_DATE"));
@@ -89,4 +90,46 @@ public class VisitDAO
             this.disConnect(con,pstmt,rs);
         }
     }
+
+
+    public boolean insertSingleVisit(VisitVO visitVO)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try
+        {
+            con = this.getConnection();
+            String sql = "INSERT INTO MINIHOME_VISIT VALUES(MINIHOME_VISIT__TABLE_NUM_SEQ.NEXTVAL, ?, ?, ?, SYSDATE)";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, visitVO.getUserId());
+            pstmt.setString(2, visitVO.getWriterId());
+            pstmt.setString(3, visitVO.getContents());
+
+            int result = pstmt.executeUpdate();
+
+            if(result == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("VisitDAO/insertSingleVisit: "+e.getMessage());
+            return false;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+
+
 }

@@ -11,6 +11,11 @@
 <html>
 <head>
     <title>방명록</title>
+    <script>
+        function goHome() {
+            location.href="/minihome";
+        }
+    </script>
 </head>
 <body>
     <div>

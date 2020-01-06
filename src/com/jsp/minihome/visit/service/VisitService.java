@@ -14,4 +14,11 @@ public class VisitService
         visitDAO = VisitDAO.getInstance();
         return visitDAO.selectAllVisit(id);
     }
+
+    public void writeVisit(VisitVO visitVO)
+    {
+        visitDAO = VisitDAO.getInstance();
+        visitDAO.insertSingleVisit(visitVO);
+    }
+
 }

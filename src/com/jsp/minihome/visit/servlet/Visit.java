@@ -20,13 +20,24 @@ public class Visit extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        request.setCharacterEncoding("utf-8");
+
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("id");
         String nowLocId = (String) session.getAttribute("nowLocId");
+
         if(id != null)
         {
             String contents = request.getParameter("contents");
+            VisitVO visitVO = new VisitVO();
+            visitVO.setUserId(nowLocId);
+            visitVO.setWriterId(id);
+            visitVO.setContents(contents);
 
+            VisitService visitService = new VisitService();
+            visitService.writeVisit(visitVO);
+
+            response.sendRedirect("/minihome/Visit");
         }
     }
 

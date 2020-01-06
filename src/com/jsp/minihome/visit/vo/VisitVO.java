@@ -2,12 +2,23 @@ package com.jsp.minihome.visit.vo;
 
 public class VisitVO
 {
+    private int visitNo;
     private String userId;
     private String writerId;
     private String userName;
     private String contents;
     private String writeDate;
 
+
+    public int getVisitNo()
+    {
+        return visitNo;
+    }
+
+    public void setVisitNo(int visitNo)
+    {
+        this.visitNo = visitNo;
+    }
 
     public String getUserName()
     {
