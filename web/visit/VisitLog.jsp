@@ -7,13 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, com.jsp.minihome.visit.vo.VisitVO" %>
-<% List<VisitVO> list = (List<VisitVO>)request.getAttribute("visitList");%>
+<% List<VisitVO> list = (List<VisitVO>)request.getAttribute("visitList");
+String myId = (String) session.getAttribute("id"); %>
 <html>
 <head>
     <title>방명록</title>
     <script>
         function goHome() {
             location.href="/minihome";
+        }
+        function deleteVisit(no) {
+            var loc = "/minihome/DeleteVisit?visitNo="+no;
+            location.href=loc;
         }
     </script>
 </head>
@@ -37,6 +42,9 @@
             <div>이름: <%= visitVO.getUserName()%></div>
             <div>작성일자: <%= visitVO.getWriteDate()%></div>
             <div>내용: <%= visitVO.getContents()%></div>
+            <% if(myId.equals(visitVO.getWriterId())) {%>
+                <div><button onclick="deleteVisit('<%=visitVO.getVisitNo()%>')">삭제</button></div>
+            <%}%>
         </div><br><br>
         <% }%>
     </div>

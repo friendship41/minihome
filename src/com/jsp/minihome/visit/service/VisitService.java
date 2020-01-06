@@ -21,4 +21,10 @@ public class VisitService
         visitDAO.insertSingleVisit(visitVO);
     }
 
+    public void deleteVisit(int no)
+    {
+        visitDAO = VisitDAO.getInstance();
+        visitDAO.deleteSingleVisit(no);
+    }
+
 }
