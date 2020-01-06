@@ -44,8 +44,9 @@ String myId = (String) session.getAttribute("id"); %>
 
         <% if(myFriendList != null) {%>
         <div>
-            <% for(MemberVO myFriend : myFriendList){ %>
-            <div>아이디: <%=myFriend.getUserId()%>, 이름: <%=myFriend.getUserName()%>, 성별: <%=myFriend.getUserGender()%>&nbsp;<button onclick="deleteFriend('<%=myId%>','<%=myFriend.getUserId()%>')">친구삭제</button></div>
+            <% for(MemberVO myFriend : myFriendList){
+            String loc = "/minihome/ChangeLoc?userId="+myFriend.getUserId();%>
+            <div>아이디: <a href="<%=loc%>"><%=myFriend.getUserId()%>, 이름: <%=myFriend.getUserName()%>, 성별: <%=myFriend.getUserGender()%></a>&nbsp;&nbsp;&nbsp;<button onclick="deleteFriend('<%=myId%>','<%=myFriend.getUserId()%>')">친구삭제</button></div>
             <% } %>
         </div>
         <% } %>
