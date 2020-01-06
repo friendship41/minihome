@@ -33,8 +33,10 @@ public class FriendList extends HttpServlet
         {
             FriendService friendService = new FriendService();
             List<MemberVO> list = friendService.getFriendRequestList(id);
+            List<MemberVO> friendList = friendService.getFriendList(id);
 
             request.setAttribute("requestFriendList", list);
+            request.setAttribute("myFriendList",friendList);
 
             RequestDispatcher disp = request.getRequestDispatcher("/friend/myFriendList.jsp");
             disp.forward(request, response);

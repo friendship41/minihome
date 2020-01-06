@@ -34,16 +34,28 @@ public class FriendService
         friendDAO = FriendDAO.getInstance();
         if(tf.equalsIgnoreCase("t"))
         {
-            return friendDAO.updateFriendAgree(userId, friendId);
+            return friendDAO.updateFriendAgree(friendId, userId);
         }
         else if(tf.equalsIgnoreCase("f"))
         {
-            return friendDAO.deleteFriendRequest(userId, friendId);
+            return friendDAO.deleteFriendRequest(friendId, userId);
         }
         else
         {
             return false;
         }
+    }
+
+    public List<MemberVO> getFriendList(String userId)
+    {
+        friendDAO = FriendDAO.getInstance();
+        return friendDAO.selectFriendList(userId);
+    }
+
+    public void deleteFriend(String myId, String friendId)
+    {
+        friendDAO = FriendDAO.getInstance();
+        friendDAO.deleteFriend(myId, friendId);
     }
 
 }

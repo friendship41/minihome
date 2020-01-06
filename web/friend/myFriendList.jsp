@@ -8,7 +8,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% List<MemberVO> requestFriendList = (List<MemberVO>) request.getAttribute("requestFriendList"); %>
+<% List<MemberVO> requestFriendList = (List<MemberVO>) request.getAttribute("requestFriendList");
+List<MemberVO> myFriendList = (List<MemberVO>) request.getAttribute("myFriendList");
+String myId = (String) session.getAttribute("id"); %>
 <html>
 <head>
     <title>친구 목록</title>
@@ -17,10 +19,19 @@
             location.href="/minihome";
         }
         function goFindFriend(){
-            location.href="findFriendForm.jsp";
+            location.href="friend/findFriendForm.jsp";
         }
         function responseAddFriend(how) {
             location.href=how;
+        }
+        function deleteFriend(myId, friendId) {
+            var a = confirm("정말로 삭제하겠습니까?");
+            if(a)
+            {
+                var dloc1 = "/minihome/DeleteFriend?userId="+myId;
+                var dloc2 = dloc1+"&friendId="+friendId;
+                location.href=dloc2;
+            }
         }
     </script>
 </head>
@@ -31,9 +42,14 @@
             <button onclick="goFindFriend()">친구추가</button>
         </div>
 
+        <% if(myFriendList != null) {%>
         <div>
-
+            <% for(MemberVO myFriend : myFriendList){ %>
+            <div>아이디: <%=myFriend.getUserId()%>, 이름: <%=myFriend.getUserName()%>, 성별: <%=myFriend.getUserGender()%>&nbsp;<button onclick="deleteFriend('<%=myId%>','<%=myFriend.getUserId()%>')">친구삭제</button></div>
+            <% } %>
         </div>
+        <% } %>
+        <br><br><br>
 
         <% if(requestFriendList != null){ %>
         <div>

@@ -56,7 +56,7 @@ public class ResponseAddFriend extends HttpServlet
                     {
                         request.setAttribute("msg", "처리도중 문제가 생겼습니다 (친구수락/거절)");
                     }
-                    request.setAttribute("href", "/minihome/friend/myFriendList.jsp");
+                    request.setAttribute("href", "/minihome/FriendList.jsp");
                     RequestDispatcher disp = request.getRequestDispatcher("/commonPage/MsgGoHref.jsp");
                     disp.forward(request, response);
                 }
