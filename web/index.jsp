@@ -7,24 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String id = (String) session.getAttribute("id");
-String nowLocId = (String) session.getAttribute("nowLocId"); %>
+    String nowLocId = (String) session.getAttribute("nowLocId"); %>
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <meta charset="utf-8">
     <title>메인 페이지</title>
-  </head>
-  <body>
-  <% if(nowLocId != null && !nowLocId.equals("")) {%>
-  <h1>현재 위치는 <b><%=nowLocId%></b>님의 미니홈피입니다.</h1>
-  <%}
-    if(id == null || id.equals(""))
-  {%>
-  <a href="member/Login.jsp">로그인</a>
-  <% }
-  else{ %>
-  <a href="/minihome/Logout">로그아웃</a>
-  <a href="/minihome/FriendList">친구목록</a>
-  <a href="/minihome/friend/findFriendForm.jsp">친구추가</a>
-  <a href="/minihome/Visit">방명록</a>
-  <% } %>
-  </body>
+    <%@ include file="include/headLink.jsp" %>
+</head>
+<body>
+<div id="wrapper">
+    <%@ include file="include/wrapperToHeader.jsp" %>
+
+</div>
+
+
+
+
+<%@ include file="include/loadJS.jsp" %>
+</body>
 </html>
