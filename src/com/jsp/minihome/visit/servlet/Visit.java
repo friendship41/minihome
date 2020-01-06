@@ -18,11 +18,11 @@ import java.util.List;
 @WebServlet("/Visit")
 public class Visit extends HttpServlet
 {
-//    여기 다시 와서 만들어야함
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("id");
+        String nowLocId = (String) session.getAttribute("nowLocId");
         if(id != null)
         {
             String contents = request.getParameter("contents");
@@ -33,20 +33,28 @@ public class Visit extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         request.setCharacterEncoding("utf-8");
-//        여기 세션말고 현재 페이지 아이디로..
         HttpSession session = request.getSession();
-        String id = (String) session.getAttribute("id");
+        String nowLocId = (String) session.getAttribute("nowLocId");
 
 
-        if(id != null)
+        if(nowLocId != null)
         {
             VisitService visitService = new VisitService();
-            List<VisitVO> list = visitService.getVisitList(id);
+            List<VisitVO> list = visitService.getVisitList(nowLocId);
 
 //            여기서 널값 나오면 에러페이지 보내는거 작업해야함
             if(list != null)
+            {
                 request.setAttribute("visitList", list);
+            }
 
+        }
+        else
+        {
+            request.setAttribute("msg", "로그인을 해주세요");
+            RequestDispatcher disp = request.getRequestDispatcher("/commonPage/MsgGoHome.jsp");
+            disp.forward(request, response);
+            return;
         }
         RequestDispatcher disp = request.getRequestDispatcher("/visit/VisitLog.jsp");
         disp.forward(request, response);

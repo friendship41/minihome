@@ -14,6 +14,10 @@
 </head>
 <body>
     <div>
+        <div>
+            <button onclick="goHome()">홈으로</button>
+        </div>
+
         <form method="post" action="/minihome/Visit">
             <div>
                 <div>내용</div>

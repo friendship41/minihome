@@ -33,6 +33,7 @@ public class Login extends HttpServlet
             case 1:
                 HttpSession session = request.getSession();
                 session.setAttribute("id",formId);
+                session.setAttribute("nowLocId", formId);
                 response.sendRedirect("/minihome");
                 return;
 //        비밀번호가 다르다면
