@@ -4,7 +4,7 @@
         <div class="row">
             <div class="span12">
                 <ul>
-                    <li><strong>어서오세여</strong></li>
+                    <li>어서오세여 <strong><%=id%></strong>님!!</li>
                     <%
                         if (nowLocId != null && !nowLocId.equals(""))
                         {

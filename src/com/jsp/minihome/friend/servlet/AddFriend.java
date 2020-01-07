@@ -35,7 +35,8 @@ public class AddFriend extends HttpServlet
         if(result == 1)
         {
             msg = "친구추가 요청을 보냈습니다.";
-            url = "/commonPage/MsgGoHome.jsp";
+            url = "/commonPage/MsgGoHref.jsp";
+            request.setAttribute("href","/minihome/friend/findFriendForm.jsp");
         }
 //        이미 존재하는 요청이거나 친구임
         else if(result == 2)

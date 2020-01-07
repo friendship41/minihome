@@ -95,7 +95,7 @@
         <div class="container">
             <div class="row marginbot30">
                 <div class="span12">
-                    <h4 class="heading"><strong>Client</strong> testimonials<span></span></h4>
+                    <h4 class="heading"><strong><%=nowLocId%></strong><span>님의 방명록</span></h4>
 
                     <% int num = 1;
                         for (VisitVO visitVO : list)

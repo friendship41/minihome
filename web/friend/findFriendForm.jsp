@@ -8,7 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.jsp.minihome.member.vo.MemberVO, java.util.List" %>
 <% List<MemberVO> friendList = (List<MemberVO>) request.getAttribute("friendList"); %>
-<% String success = (String) request.getAttribute("success");%>
+<% String success = (String) request.getAttribute("success");
+    String id = (String) session.getAttribute("id");
+    String nowLocId = (String) session.getAttribute("nowLocId"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,33 +43,98 @@
     </section>
 
 
+    <section id="content">
+        <div class="container">
+
+            <div class="row">
+                <div class="span6">
+                    <h4>친구 검색</h4>
+
+                    <form class="form-search" method="get" action="/minihome/FindFriend">
+                        <input placeholder="아이디 또는 이름을 입력해주세요" type="text" class="input-medium search-query"
+                               name="friendId">
+                        <button type="submit" class="btn btn-square btn-theme">검색</button>
+                    </form>
+
+                </div>
+
+                <% if (friendList != null)
+                {%>
+                <div class="span6">
+                    <h4>검색 결과</h4>
+                    <% if (success.equals("f"))
+                    {%>
+                    <h3><strong>일치하는 정보가 없습니다.</strong></h3>
+                    <% }
+                    else
+                    {%>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                아이디
+                            </th>
+                            <th>
+                                이름
+                            </th>
+                            <th>
+                                성별
+                            </th>
+                            <th>
+                                -
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <% for (MemberVO friend : friendList)
+                            {
+                                String addFriendLink = "/minihome/AddFriend?friendId=" + friend.getUserId();%>
+                        <tr>
+                            <td>
+                                <%=friend.getUserId()%>
+                            </td>
+                            <td>
+                                <%=friend.getUserName()%>
+                            </td>
+                            <td>
+                                <%=friend.getUserGender()%>
+                            </td>
+                            <td>
+                                <button onclick="location.href='<%=addFriendLink%>'" class="btn btn-mini btn-theme">친구요청</button>
+                            </td>
+                        </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    <% } %>
+
+                </div>
+                <% } %>
+
+
+            </div>
+
+        </div>
+    </section>
 
 
 </div>
 
 
+<%--<div>--%>
 
-    <div>
-        <div>
-            <form method="get" action="/minihome/FindFriend">
-                <div>아이디 또는 이름: <input type="text" name="friendId" placeholder="아이디나 이름을 입력해 주세요"></div>
-                <div><input type="submit" value="찾기"></div>
-            </form>
-        </div>
-        <% if(friendList != null) {%>
-            <div>
-                <% if(success.equals("f")){%>
-                    <div>일치하는 정보가 없습니다.</div>
-                <% }
-                else{%>
-                    <div>검색 결과</div>
-                    <% for(MemberVO friend : friendList){
-                        String addFriendLink = "/minihome/AddFriend?friendId="+friend.getUserId();%>
-                        <div><a href="<%=addFriendLink%>">아이디: <%=friend.getUserId()%>, 이름: <%=friend.getUserName()%>, 성별: <%=friend.getUserGender()%></a></div>
-                    <% }
-                } %>
-            </div>
-        <% } %>
-    </div>
+<%--    <div>--%>
+
+<%--        <div>검색 결과</div>--%>
+
+<%--            %>--%>
+<%--        <div><a href="<%=addFriendLink%>">아이디: , 이름: ,--%>
+<%--            성별:--%>
+<%--        </a></div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+
+<%@ include file="../include/footer.jsp" %>
+<%@ include file="../include/loadJS.jsp" %>
 </body>
 </html>
