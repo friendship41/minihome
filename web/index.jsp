@@ -23,7 +23,7 @@
 
 
 
-
+<%@ include file="include/footer.jsp" %>
 <%@ include file="include/loadJS.jsp" %>
 </body>
 </html>

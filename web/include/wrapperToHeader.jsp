@@ -9,7 +9,7 @@
                         if (nowLocId != null && !nowLocId.equals(""))
                         {
                     %>
-                    <li>현재 위치는 <%=nowLocId%> 님의 미니홈피입니다.</li>
+                    <li>현재 위치는 <strong><%=nowLocId%></strong> 님의 미니홈피입니다.</li>
                     <%}%>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
                      aria-labelledby="mySigninModalLabel" aria-hidden="true">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 id="mySigninModalLabel">Login to your <strong>account</strong></h4>
+                        <h4 id="mySigninModalLabel"><strong>로그인</strong></h4>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" method="post" action="/minihome/Login">
@@ -80,7 +80,7 @@
                      aria-labelledby="mySignupModalLabel" aria-hidden="true">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
+                        <h4 id="mySignupModalLabel"><strong>회원가입</strong></h4>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" action="/minihome/SignUp" method="post">
@@ -159,7 +159,7 @@
                                 </li>
                                 <% if(id != null && !id.equals("")) {%>
                                 <li class="dropdown">
-                                    <a href="#">Friend <i class="icon-angle-down"></i></a>
+                                    <a href="/minihome/FriendList">Friend <i class="icon-angle-down"></i></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/minihome/FriendList">친구목록</a></li>
                                         <li><a href="/minihome/friend/findFriendForm.jsp">친구추가</a></li>
