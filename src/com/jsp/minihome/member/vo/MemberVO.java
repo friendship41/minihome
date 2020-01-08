@@ -5,12 +5,23 @@ public class MemberVO
     private String userId;
     private String userPassword;
     private String userName;
+    private String userEmail;
     private String userGender;
     private String userPhone;
     private String userClass;
     private String userStateMessage;
     private int userTotalVisit;
     private int userTodayVisit;
+
+    public String getUserEmail()
+    {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail)
+    {
+        this.userEmail = userEmail;
+    }
 
     public String getUserStateMessage()
     {

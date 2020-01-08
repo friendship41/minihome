@@ -27,4 +27,10 @@ public class VisitService
         visitDAO.deleteSingleVisit(no);
     }
 
+    public VisitVO getLastVisit(String userId)
+    {
+        visitDAO = VisitDAO.getInstance();
+        return visitDAO.selectLastVisit(userId);
+    }
+
 }

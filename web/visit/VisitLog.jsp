@@ -9,18 +9,23 @@
 <%@ page import="java.util.List, com.jsp.minihome.visit.vo.VisitVO" %>
 <% List<VisitVO> list = (List<VisitVO>) request.getAttribute("visitList");
     String nowLocId = (String) session.getAttribute("nowLocId");
-    String id = (String) session.getAttribute("id"); %>
+    String id = (String) session.getAttribute("id");
+    System.out.println("리로드 되었음"); %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>방명록</title>
     <%@ include file="../include/headLink.jsp" %>
-    <script>
+<%--    <form method="post" action="/minihome/Visit" role="form" class="contactForm">--%>
+    <script type="text/javascript">
         function deleteVisit(no) {
             var loc = "/minihome/DeleteVisit?visitNo=" + no;
             location.href = loc;
         }
+
+
+
     </script>
 </head>
 <body>
@@ -57,7 +62,7 @@
                 <div class="span12">
                     <h4>친구에게 방명록을 적어주세요 <strong>답장은 기대하지 마시구요</strong></h4>
 
-                    <form method="post" action="/minihome/Visit" role="form" class="contactForm">
+                    <form role="form" class="contactForm">
                         <div id="sendmessage">ㅎㅎㅎㅎㅎ</div>
                         <div id="errormessage">ㅡㅡ...</div>
 
@@ -75,11 +80,11 @@
                             <%--                                    <div class="validation"></div>--%>
                             <%--                                </div>--%>
                             <div class="span12 margintop10 form-group">
-                                <textarea class="form-control" name="contents" rows="12" data-rule="required"
+                                <textarea class="form-control" id="inputContents" name="contents" rows="12" data-rule="required"
                                           data-msg="Please write something" placeholder="내용" required></textarea>
                                 <div class="validation"></div>
                                 <p class="text-center">
-                                    <button class="btn btn-large btn-theme margintop10" type="submit">작 성</button>
+                                    <button class="btn btn-large btn-theme margintop10" onclick="writeVisit()">작 성</button>
                                 </p>
                             </div>
                         </div>
@@ -96,6 +101,10 @@
             <div class="row marginbot30">
                 <div class="span12">
                     <h4 class="heading"><strong><%=nowLocId%></strong><span>님의 방명록</span></h4>
+
+                    <div id="visitList">
+
+                    </div>
 
                     <% int num = 1;
                         for (VisitVO visitVO : list)

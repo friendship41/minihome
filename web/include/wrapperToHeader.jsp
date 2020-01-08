@@ -87,27 +87,33 @@
                             <div class="control-group">
                                 <label class="control-label" for="inputId">ID</label>
                                 <div class="controls">
-                                    <input type="text" id="inputId" placeholder="ID" name="userId">
+                                    <input type="text" id="inputId" placeholder="ID" name="userId" required>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="inputSignupPassword">Password</label>
                                 <div class="controls">
                                     <input type="password" id="inputSignupPassword" placeholder="Password"
-                                           name="userPassword">
+                                           name="userPassword" required>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
                                 <div class="controls">
                                     <input type="password" id="inputSignupPassword2" placeholder="Password"
-                                           name="userPasswordConfirm">
+                                           name="userPasswordConfirm" required>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="inputSignupName">Name</label>
                                 <div class="controls">
-                                    <input type="text" id="inputSignupName" placeholder="Name" name="userName">
+                                    <input type="text" id="inputSignupName" placeholder="Name" name="userName" required>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="inputSignupEmail">Email</label>
+                                <div class="controls">
+                                    <input type="text" id="inputSignupEmail" placeholder="Email" name="userEmail" required>
                                 </div>
                             </div>
                             <div class="control-group">

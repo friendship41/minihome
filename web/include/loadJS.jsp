@@ -16,6 +16,9 @@
 <script src="js/jquery.ba-cond.min.js"></script>
 <script src="js/jquery.slitslider.js"></script>
 <script src="js/animate.js"></script>
+<script src="js/httpRequest.js"></script>
+<script src="js/ajax.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
 
 <!-- Template Custom JavaScript File -->
 <script src="js/custom.js"></script>

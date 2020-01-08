@@ -24,6 +24,7 @@ public class SignUp extends HttpServlet
         user.setUserId(request.getParameter("userId"));
         user.setUserPassword(request.getParameter("userPassword"));
         user.setUserName(request.getParameter("userName"));
+        user.setUserEmail(request.getParameter("userEmail"));
         user.setUserGender(request.getParameter("userGender"));
         String phone = request.getParameter("userPhone");
         if(!phone.equals(""))

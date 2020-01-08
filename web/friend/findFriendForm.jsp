@@ -10,7 +10,7 @@
 <% List<MemberVO> friendList = (List<MemberVO>) request.getAttribute("friendList"); %>
 <% String success = (String) request.getAttribute("success");
     String id = (String) session.getAttribute("id");
-    String nowLocId = (String) session.getAttribute("nowLocId"); %>
+    String nowLocId = (String) session.getAttribute("nowLocId");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,20 +119,6 @@
 
 
 </div>
-
-
-<%--<div>--%>
-
-<%--    <div>--%>
-
-<%--        <div>검색 결과</div>--%>
-
-<%--            %>--%>
-<%--        <div><a href="<%=addFriendLink%>">아이디: , 이름: ,--%>
-<%--            성별:--%>
-<%--        </a></div>--%>
-<%--    </div>--%>
-<%--</div>--%>
 
 <%@ include file="../include/footer.jsp" %>
 <%@ include file="../include/loadJS.jsp" %>
