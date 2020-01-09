@@ -8,10 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% List<MemberVO> requestFriendList = (List<MemberVO>) request.getAttribute("requestFriendList");
-    List<MemberVO> myFriendList = (List<MemberVO>) request.getAttribute("myFriendList");
-    String nowLocId = (String) session.getAttribute("nowLocId");
-    String id = (String) session.getAttribute("id"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,29 +81,26 @@
                             </th>
                         </tr>
                         </thead>
-                        <% if (myFriendList != null)
-                        {%>
-                        <tbody>
-                        <% for (MemberVO myFriend : myFriendList)
-                        {
-                            String loc = "/minihome/ChangeLoc?userId=" + myFriend.getUserId();%>
-                        <tr>
-                            <td>
-                                <a href="<%=loc%>"><%=myFriend.getUserId()%>
-                            </td>
-                            <td>
-                                <%=myFriend.getUserName()%>
-                            </td>
-                            <td>
-                                <%=myFriend.getUserGender()%>
-                            </td>
-                            <td>
-                                <button onclick="deleteFriend('<%=id%>','<%=myFriend.getUserId()%>')" class="btn btn-mini btn-theme">친구삭제</button>
-                            </td>
-                        </tr>
-                        <% } %>
-                        </tbody>
-                        <% } %>
+                        <c:if test="${requestScope.myFriendList ne null}">
+                            <tbody>
+                            <c:forEach var="myFriend" items="${requestScope.myFriendList}">
+                                <tr>
+                                    <td>
+                                        <a href="/minihome/ChangeLoc?userId=${myFriend.userId}">${myFriend.userId}
+                                    </td>
+                                    <td>
+                                        ${myFriend.userName}
+                                    </td>
+                                    <td>
+                                        ${myFriend.userGender}
+                                    </td>
+                                    <td>
+                                        <button onclick="deleteFriend('${sessionScope.id}','${myFriend.userId}')" class="btn btn-mini btn-theme">친구삭제</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </c:if>
                     </table>
                 </div>
                 <div class="span6">
@@ -128,31 +122,27 @@
                             </th>
                         </tr>
                         </thead>
-                        <% if (requestFriendList != null)
-                        { %>
-                        <tbody>
-                        <% for (MemberVO requestFriend : requestFriendList)
-                        {
-                            String accept = "/minihome/ResponseAddFriend?friendId=" + requestFriend.getUserId() + "&res=t";
-                            String dis = "/minihome/ResponseAddFriend?friendId=" + requestFriend.getUserId() + "&res=f";%>
-                        <tr>
-                            <td>
-                                <%=requestFriend.getUserId()%>
-                            </td>
-                            <td>
-                                <%=requestFriend.getUserName()%>
-                            </td>
-                            <td>
-                                <%=requestFriend.getUserGender()%>
-                            </td>
-                            <td>
-                                <button onclick="responseAddFriend('<%=accept%>')" class="btn btn-mini btn-theme">수락</button>
-                                <button onclick="responseAddFriend('<%=dis%>')" class="btn btn-mini btn-theme">거절</button>
-                            </td>
-                        </tr>
-                        <% } %>
-                        </tbody>
-                        <% } %>
+                        <c:if test="${requestScope.requestFriendList ne null}">
+                            <tbody>
+                            <c:forEach var="requestFriend" items="${requestScope.requestFriendList}">
+                                <tr>
+                                    <td>
+                                        ${requestFriend.userId}
+                                    </td>
+                                    <td>
+                                        ${requestFriend.userName}
+                                    </td>
+                                    <td>
+                                        ${requestFriend.userGender}
+                                    </td>
+                                    <td>
+                                        <button onclick="responseAddFriend('/minihome/ResponseAddFriend?friendId=${requestFriend.userId}&res=t')" class="btn btn-mini btn-theme">수락</button>
+                                        <button onclick="responseAddFriend('/minihome/ResponseAddFriend?friendId=${requestFriend.userId}&res=f')" class="btn btn-mini btn-theme">거절</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </c:if>
                     </table>
                 </div>
 

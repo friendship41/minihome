@@ -6,9 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%  String nowLocId = (String) session.getAttribute("nowLocId");
-    String id = (String) session.getAttribute("id");
-    System.out.println(id); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,7 +107,7 @@
                         '                        </div>\n' +
                         '                    </div>\n';
                     appendVisitBody(htmlv);
-                    if(tempVisit.writerId == '<%=id%>')
+                    if(tempVisit.writerId == '${sessionScope.id}')
                     {
                         addDeleteBtn(tempVisit.visitNo);
                     }
@@ -156,11 +153,11 @@
                         '                        </div>\n' +
                         '                    </div>\n';
                     appendVisitBody(htmlv);
-                    if(tempVisit.writerId == '<%=id%>')
+                    if(tempVisit.writerId == '${sessionScope.id}')
                     {
                         addDeleteBtn(tempVisit.visitNo);
                     }
-                    if(json[(i+1)].writerId == '<%=id%>')
+                    if(json[(i+1)].writerId == '${sessionScope.id}')
                     {
                         addDeleteBtn(json[(i+1)].visitNo);
                     }
@@ -186,7 +183,7 @@
 
         function resetVisitList() {
             $("#visitListt").empty();
-            $("#visitListt").append("<h4 class=\"heading\" id=\"visitListTitle\"><strong><%=nowLocId%></strong><span>님의 방명록</span></h4>");
+            $("#visitListt").append("<h4 class=\"heading\" id=\"visitListTitle\"><strong>${sessionScope.nowLocId}</strong><span>님의 방명록</span></h4>");
         }
 
     </script>
@@ -201,7 +198,7 @@
             <div class="row">
                 <div class="span4">
                     <div class="inner-heading">
-                        <h2><%=nowLocId%>님의 방명록</h2>
+                        <h2>${sessionScope.nowLocId}님의 방명록</h2>
                     </div>
                 </div>
                 <div class="span8">
@@ -250,7 +247,7 @@
         <div class="container">
             <div class="row marginbot30">
                 <div class="span12" id="visitListt">
-                    <h4 class="heading" id="visitListTitle"><strong><%=nowLocId%></strong><span>님의 방명록</span></h4>
+                    <h4 class="heading" id="visitListTitle"><strong>${sessionScope.nowLocId}</strong><span>님의 방명록</span></h4>
 
                     </div>
                 </div>

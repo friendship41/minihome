@@ -1,16 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="hidden-top">
     <div class="hidden-top-inner container">
         <div class="row">
             <div class="span12">
                 <ul>
-                    <li>어서오세여 <strong><%=id%></strong>님!!</li>
-                    <%
-                        if (nowLocId != null && !nowLocId.equals(""))
-                        {
-                    %>
-                    <li>현재 위치는 <strong><%=nowLocId%></strong> 님의 미니홈피입니다.</li>
-                    <%}%>
+                    <li>어서오세여 <strong>${sessionScope.id}</strong>님!!</li>
+                    <c:if test="${sessionScope.nowLocId ne null}">
+                        <li>현재 위치는 <strong>${sessionScope.nowLocId}</strong> 님의 미니홈피입니다.</li>
+                    </c:if>
                 </ul>
             </div>
         </div>
@@ -27,17 +25,15 @@
             <div class="span12">
                 <div class="headnav">
                     <ul>
-                        <% if (id == null || id.equals(""))
-                        {%>
-                        <li><a href="#mySignin" data-toggle="modal"><i class="icon-user"></i> 로그인</a></li>
-                        <li><a href="#mySignup" data-toggle="modal">회원가입</a></li>
-                        <%
-                        }
-                        else
-                        {
-                        %>
-                        <li><a href="/minihome/Logout" data-toggle="modal"><i class="icon-user"></i> 로그아웃</a></li>
-                        <%}%>
+                        <c:choose>
+                            <c:when test="${sessionScope.id eq null}">
+                                <li><a href="#mySignin" data-toggle="modal"><i class="icon-user"></i> 로그인</a></li>
+                                <li><a href="#mySignup" data-toggle="modal">회원가입</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/minihome/Logout" data-toggle="modal"><i class="icon-user"></i> 로그아웃</a></li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
 
@@ -163,26 +159,15 @@
                                 <li>
                                     <a href="/minihome">Home&nbsp;&nbsp;&nbsp;</a>
                                 </li>
-                                <% if(id != null && !id.equals("")) {%>
-                                <li class="dropdown">
-                                    <a href="/minihome/FriendList">Friend <i class="icon-angle-down"></i></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/minihome/FriendList">친구목록</a></li>
-                                        <li><a href="/minihome/friend/findFriendForm.jsp">친구추가</a></li>
-                                        <%--                                            <li><a href="components.html">Components</a></li>--%>
-                                        <%--                                            <li><a href="animations.html">56 Animations</a></li>--%>
-                                        <%--                                            <li><a href="icons.html">Icons</a></li>--%>
-                                        <%--                                            <li><a href="icon-variations.html">Icon variations</a></li>--%>
-                                        <%--                                            <li class="dropdown"><a href="#">3 Sliders <i class="icon-angle-right"></i></a>--%>
-                                        <%--                                                <ul class="dropdown-menu sub-menu-level1">--%>
-                                        <%--                                                    <li><a href="index.html">Nivo slider</a></li>--%>
-                                        <%--                                                    <li><a href="index-alt2.html">Slit slider</a></li>--%>
-                                        <%--                                                    <li><a href="index-alt3.html">Parallax slider</a></li>--%>
-                                        <%--                                                </ul>--%>
-                                        <%--                                            </li>--%>
-                                    </ul>
-                                </li>
-                                <%}%>
+                                <c:if test="${sessionScope.id ne null}">
+                                    <li class="dropdown">
+                                        <a href="/minihome/FriendList">Friend <i class="icon-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/minihome/FriendList">친구목록</a></li>
+                                            <li><a href="/minihome/friend/findFriendForm.jsp">친구추가</a></li>
+                                        </ul>
+                                    </li>
+                                </c:if>
                                 <li class="dropdown">
                                     <a href="#">Pages <i class="icon-angle-down"></i></a>
                                     <ul class="dropdown-menu">

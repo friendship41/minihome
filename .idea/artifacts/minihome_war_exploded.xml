@@ -12,6 +12,9 @@
           <element id="library" level="project" name="apache_dbconnection_pool" />
           <element id="library" level="project" name="JAX-WS-Apache Axis" />
           <element id="file-copy" path="X:/4_drivers/gson-2.8.5.jar" />
+          <element id="file-copy" path="X:/4_drivers/el-api.jar" />
+          <element id="file-copy" path="X:/4_drivers/jstl/javax.servlet.jsp.jstl-1.2.1.jar" />
+          <element id="file-copy" path="X:/4_drivers/jstl/javax.servlet.jsp.jstl-api-1.2.1.jar" />
         </element>
       </element>
     </root>

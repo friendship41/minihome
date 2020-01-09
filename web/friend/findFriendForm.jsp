@@ -7,10 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.jsp.minihome.member.vo.MemberVO, java.util.List" %>
-<% List<MemberVO> friendList = (List<MemberVO>) request.getAttribute("friendList"); %>
-<% String success = (String) request.getAttribute("success");
-    String id = (String) session.getAttribute("id");
-    String nowLocId = (String) session.getAttribute("nowLocId");%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<% List<MemberVO> friendList = (List<MemberVO>) request.getAttribute("friendList"); %>--%>
+<%--<% String success = (String) request.getAttribute("success");%>--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,60 +57,54 @@
 
                 </div>
 
-                <% if (friendList != null)
-                {%>
-                <div class="span6">
-                    <h4>검색 결과</h4>
-                    <% if (success.equals("f"))
-                    {%>
-                    <h3><strong>일치하는 정보가 없습니다.</strong></h3>
-                    <% }
-                    else
-                    {%>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>
-                                아이디
-                            </th>
-                            <th>
-                                이름
-                            </th>
-                            <th>
-                                성별
-                            </th>
-                            <th>
-                                -
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <% for (MemberVO friend : friendList)
-                            {
-                                String addFriendLink = "/minihome/AddFriend?friendId=" + friend.getUserId();%>
-                        <tr>
-                            <td>
-                                <%=friend.getUserId()%>
-                            </td>
-                            <td>
-                                <%=friend.getUserName()%>
-                            </td>
-                            <td>
-                                <%=friend.getUserGender()%>
-                            </td>
-                            <td>
-                                <button onclick="location.href='<%=addFriendLink%>'" class="btn btn-mini btn-theme">친구요청</button>
-                            </td>
-                        </tr>
-                            <% } %>
-                        </tbody>
-                    </table>
-                    <% } %>
-
-                </div>
-                <% } %>
-
-
+                <c:if test="${requestScope.friendList ne null}">
+                    <div class="span6">
+                        <h4>검색 결과</h4>
+                        <c:choose>
+                            <c:when test="${requestScope.success eq 'f'}">
+                                <h3><strong>일치하는 정보가 없습니다.</strong></h3>
+                            </c:when>
+                            <c:otherwise>
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            아이디
+                                        </th>
+                                        <th>
+                                            이름
+                                        </th>
+                                        <th>
+                                            성별
+                                        </th>
+                                        <th>
+                                            -
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="friend" items="${requestScope.friendList}">
+                                        <tr>
+                                            <td>
+                                                ${friend.userId}
+                                            </td>
+                                            <td>
+                                                ${friend.userName}
+                                            </td>
+                                            <td>
+                                                ${friend.userGender}
+                                            </td>
+                                            <td>
+                                                <button onclick="location.href='/minihome/AddFriend?friendId=${friend.userId}'" class="btn btn-mini btn-theme">친구요청</button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </c:if>
             </div>
 
         </div>
