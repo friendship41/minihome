@@ -34,5 +34,14 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="apache_dbconnection_pool" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://X:/4_drivers/gson-2.8.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

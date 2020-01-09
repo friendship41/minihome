@@ -29,7 +29,7 @@ public class FriendList extends HttpServlet
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("id");
 
-        if(id != null)
+        if(id != null && !id.equals(""))
         {
             FriendService friendService = new FriendService();
             List<MemberVO> list = friendService.getFriendRequestList(id);

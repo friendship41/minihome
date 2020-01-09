@@ -11,6 +11,7 @@
           <element id="file-copy" path="X:/4_drivers/ojdbc8.jar" />
           <element id="library" level="project" name="apache_dbconnection_pool" />
           <element id="library" level="project" name="JAX-WS-Apache Axis" />
+          <element id="file-copy" path="X:/4_drivers/gson-2.8.5.jar" />
         </element>
       </element>
     </root>

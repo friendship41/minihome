@@ -2,6 +2,7 @@ package com.jsp.minihome.visit.servlet;
 
 import com.jsp.minihome.visit.service.VisitService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +32,7 @@ public class DeleteVisit extends HttpServlet
         {
             e.printStackTrace();
         }
-        response.sendRedirect("/minihome/Visit");
+        RequestDispatcher disp = request.getRequestDispatcher("GetVisitList");
+        disp.forward(request, response);
     }
 }

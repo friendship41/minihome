@@ -6,29 +6,192 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List, com.jsp.minihome.visit.vo.VisitVO" %>
-<% List<VisitVO> list = (List<VisitVO>) request.getAttribute("visitList");
-    String nowLocId = (String) session.getAttribute("nowLocId");
+<%  String nowLocId = (String) session.getAttribute("nowLocId");
     String id = (String) session.getAttribute("id");
-    System.out.println("리로드 되었음"); %>
+    System.out.println(id); %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>방명록</title>
     <%@ include file="../include/headLink.jsp" %>
-<%--    <form method="post" action="/minihome/Visit" role="form" class="contactForm">--%>
     <script type="text/javascript">
-        function deleteVisit(no) {
-            var loc = "/minihome/DeleteVisit?visitNo=" + no;
-            location.href = loc;
+
+        function getToServer() {
+            $.ajax({
+                url: "/minihome/GetVisitList",
+                data: {},
+                method: "GET",
+                dataType: "json"
+            })
+                .done(function(json) {
+                    console.log(json);
+                    getList(json);
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    $("#visitList").append(errorThrown);
+                    $("#visitList").append(status);
+                })
+        }
+
+        function deleteVisitAjaxRequest(url) {
+            $.ajax({
+                url: url,
+                data: {},
+                method: "GET",
+                dataType: "json"
+            })
+                .done(function(json) {
+                    console.log(json);
+                    getList(json);
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    alert(errorThrown);
+                })
+        }
+
+        function writeVisit() {
+            var temp = $("textarea#inputContents").val();
+            $.ajax({
+                url: "/minihome/Visit",
+                type: "POST",
+                data: { contents:temp},
+                dataType: "json"
+            })
+                .done(function(json) {
+                    console.log(json);
+                    $("textarea#inputContents").val('');
+                    getList(json);
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    alert(errorThrown);
+                })
         }
 
 
+        function deleteVisit(no) {
+            var loc = "/minihome/DeleteVisit?visitNo=" + no;
+            deleteVisitAjaxRequest(loc);
+        }
+
+        function getList(json){
+            // console.log(json.length);
+
+            resetVisitList();
+
+            for(var i=0; i<json.length; i++)
+            {
+
+                var tempVisit = json[i];
+                // console.log("i: "+i);
+                i *= 1;
+
+
+                if(i%2 === 0 && i===json.length-1)
+                {
+                    var htmlv = '<div class="row">' +
+                        '                        <div class="span6">\n' +
+                        '                            <div class="wrapper">\n' +
+                        '                                <div class="testimonial">\n' +
+                        '                                    <p class="text">\n' +
+                        '                                        <i class="icon-quote-left icon-48"></i>'+ tempVisit.contents +
+                        '                                    </p>\n' +
+                        '                                    <div class="author">\n' +
+                        '                                        <img src="../img/dummies/testimonial-author1.png" class="img-circle bordered"\n' +
+                        '                                             alt=""/>\n' +
+                        '                                        <p class="name">\n' +
+                        tempVisit.userName +
+                        '                                        </p>\n' +
+                        '                                        <span class="info" id="'+tempVisit.visitNo+'_visitBtnLoc">'+tempVisit.writeDate+'&nbsp;&nbsp;&nbsp;\n' +
+                        '                                        </span>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n';
+                    appendVisitBody(htmlv);
+                    if(tempVisit.writerId == '<%=id%>')
+                    {
+                        addDeleteBtn(tempVisit.visitNo);
+                    }
+                }
+                else if((i%2) === 0 && i!=json.length-1)
+                {
+                    var htmlv = '<div class="row">' +
+                        '                        <div class="span6">\n' +
+                        '                            <div class="wrapper">\n' +
+                        '                                <div class="testimonial">\n' +
+                        '                                    <p class="text">\n' +
+                        '                                        <i class="icon-quote-left icon-48"></i>'+ tempVisit.contents +
+                        '                                    </p>\n' +
+                        '                                    <div class="author">\n' +
+                        '                                        <img src="../img/dummies/testimonial-author1.png" class="img-circle bordered"\n' +
+                        '                                             alt=""/>\n' +
+                        '                                        <p class="name">\n' +
+                        tempVisit.userName +
+                        '                                        </p>\n' +
+                        '                                        <span class="info" id="'+tempVisit.visitNo+'_visitBtnLoc">'+tempVisit.writeDate+'&nbsp;&nbsp;&nbsp;\n' +
+                        '                                        </span>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                        <div class="span6">\n' +
+                        '                            <div class="wrapper">\n' +
+                        '                                <div class="testimonial">\n' +
+                        '                                    <p class="text">\n' +
+                        '                                        <i class="icon-quote-left icon-48"></i>'+ json[(i+1)].contents +
+                        '                                    </p>\n' +
+                        '                                    <div class="author">\n' +
+                        '                                        <img src="../img/dummies/testimonial-author1.png" class="img-circle bordered"\n' +
+                        '                                             alt=""/>\n' +
+                        '                                        <p class="name">\n' +
+                        json[(i+1)].userName +
+                        '                                        </p>\n' +
+                        '                                        <span class="info" id="'+json[(i+1)].visitNo+'_visitBtnLoc">'+json[(i+1)].writeDate+'&nbsp;&nbsp;&nbsp;\n' +
+                        '                                        </span>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                    </div>\n';
+                    appendVisitBody(htmlv);
+                    if(tempVisit.writerId == '<%=id%>')
+                    {
+                        addDeleteBtn(tempVisit.visitNo);
+                    }
+                    if(json[(i+1)].writerId == '<%=id%>')
+                    {
+                        addDeleteBtn(json[(i+1)].visitNo);
+                    }
+                }
+
+            }
+
+            // console.log($("#visitListt").html());
+        }
+
+        //<button class="btn btn-mini btn-theme" onclick="deleteVisit('visitNo')">삭 제</button>
+
+        function appendVisitBody(text) {
+            $("#visitListt").append(text);
+            // console.log(text);
+        }
+
+        function addDeleteBtn(no) {
+            var temp = "#"+no+"_visitBtnLoc";
+            $(temp).append("<button class=\"btn btn-mini btn-theme\" onclick=\"deleteVisit("+no+")\">삭 제</button>");
+            // console.log($(temp).html());
+        }
+
+        function resetVisitList() {
+            $("#visitListt").empty();
+            $("#visitListt").append("<h4 class=\"heading\" id=\"visitListTitle\"><strong><%=nowLocId%></strong><span>님의 방명록</span></h4>");
+        }
 
     </script>
 </head>
-<body>
+<body onload="getToServer()">
 <div id="wrapper">
     <%@ include file="../include/wrapperToHeader.jsp" %>
 
@@ -62,33 +225,20 @@
                 <div class="span12">
                     <h4>친구에게 방명록을 적어주세요 <strong>답장은 기대하지 마시구요</strong></h4>
 
-                    <form role="form" class="contactForm">
+                    <div role="form" class="contactForm">
                         <div id="sendmessage">ㅎㅎㅎㅎㅎ</div>
                         <div id="errormessage">ㅡㅡ...</div>
 
                         <div class="row">
-                            <%--                                <div class="span4 form-group">--%>
-                            <%--                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />--%>
-                            <%--                                    <div class="validation"></div>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div class="span4 form-group">--%>
-                            <%--                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />--%>
-                            <%--                                    <div class="validation"></div>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div class="span4 form-group">--%>
-                            <%--                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />--%>
-                            <%--                                    <div class="validation"></div>--%>
-                            <%--                                </div>--%>
                             <div class="span12 margintop10 form-group">
                                 <textarea class="form-control" id="inputContents" name="contents" rows="12" data-rule="required"
                                           data-msg="Please write something" placeholder="내용" required></textarea>
-                                <div class="validation"></div>
                                 <p class="text-center">
                                     <button class="btn btn-large btn-theme margintop10" onclick="writeVisit()">작 성</button>
                                 </p>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,53 +249,12 @@
     <section id="content">
         <div class="container">
             <div class="row marginbot30">
-                <div class="span12">
-                    <h4 class="heading"><strong><%=nowLocId%></strong><span>님의 방명록</span></h4>
-
-                    <div id="visitList">
+                <div class="span12" id="visitListt">
+                    <h4 class="heading" id="visitListTitle"><strong><%=nowLocId%></strong><span>님의 방명록</span></h4>
 
                     </div>
-
-                    <% int num = 1;
-                        for (VisitVO visitVO : list)
-                        {
-                            if (num % 2 == 1)
-                            {%>
-                    <div class="row">
-                        <%}%>
-                        <div class="span6">
-                            <div class="wrapper">
-                                <div class="testimonial">
-                                    <p class="text">
-                                        <i class="icon-quote-left icon-48"></i> <%= visitVO.getContents()%>
-                                    </p>
-                                    <div class="author">
-                                        <img src="img/dummies/testimonial-author1.png" class="img-circle bordered"
-                                             alt=""/>
-                                        <p class="name">
-                                            <%=visitVO.getUserName()%>
-                                        </p>
-                                        <span class="info"><%= visitVO.getWriteDate()%>&nbsp;&nbsp;&nbsp;
-                                            <% if (id.equals(visitVO.getWriterId()))
-                                            { %>
-                                            <button class="btn btn-mini btn-theme"
-                                                    onclick="deleteVisit('<%=visitVO.getVisitNo()%>')">삭 제</button>
-                                        <%}%>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <% if (num % 2 == 0)
-                        {%>
-                    </div>
-                    <% }
-                        num++;
-                    }%>
-
                 </div>
             </div>
-        </div>
     </section>
 
 
@@ -154,5 +263,6 @@
 
 <%@ include file="../include/footer.jsp" %>
 <%@ include file="../include/loadJS.jsp" %>
+<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
 </body>
 </html>
