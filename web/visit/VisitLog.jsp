@@ -1,4 +1,4 @@
-<%@ page import="com.jsp.minihome.visit.vo.VisitVO" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: stage41
   Date: 2019-12-26
@@ -72,6 +72,7 @@
         }
 
         function getList(json){
+            console.log(json);
             // console.log(json.length);
 
             resetVisitList();

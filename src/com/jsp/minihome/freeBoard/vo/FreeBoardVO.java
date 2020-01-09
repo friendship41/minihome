@@ -7,6 +7,7 @@ public class FreeBoardVO
     private String writerName;
     private String email;
     private String subject;
+    private String categories;
     private String content;
     private String imgLoc;
     private int readcnt;
@@ -15,6 +16,16 @@ public class FreeBoardVO
     private int depth;
     private String regdate;
     private String ip;
+
+    public String getCategories()
+    {
+        return categories;
+    }
+
+    public void setCategories(String categories)
+    {
+        this.categories = categories;
+    }
 
     public String getWriterId()
     {

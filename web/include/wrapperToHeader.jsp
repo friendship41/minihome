@@ -187,9 +187,9 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#">Blog <i class="icon-angle-down"></i></a>
+                                    <a href="/minihome/FreeBoardList">Board <i class="icon-angle-down"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
+                                        <li><a href="/minihome/FreeBoardList">자유게시판</a></li>
                                         <li><a href="blog-right-sidebar.html">Blog right sidebar</a></li>
                                         <li><a href="post-left-sidebar.html">Post left sidebar</a></li>
                                         <li><a href="post-right-sidebar.html">Post right sidebar</a></li>
