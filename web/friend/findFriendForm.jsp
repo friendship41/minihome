@@ -8,14 +8,86 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.jsp.minihome.member.vo.MemberVO, java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<% List<MemberVO> friendList = (List<MemberVO>) request.getAttribute("friendList"); %>--%>
-<%--<% String success = (String) request.getAttribute("success");%>--%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>친구 찾기</title>
     <%@ include file="../include/headLink.jsp" %>
+
+    <script>
+
+        function findFriendAjax() {
+            var findId = $("#tfFindId").val();
+            $.ajax({
+                url: "/minihome/FindFriend",
+                type: "GET",
+                data: {friendId:findId},
+                dataType: "json"
+            })
+                .done(function(json) {
+
+                    resetFindFriendTable();
+                    // console.log("jsonLength: "+json.length);
+
+                    if(json.length === 0)
+                    {
+                        $("#searchResultDiv").append("<h3><strong>일치하는 정보가 없습니다.</strong></h3>");
+                    }
+                    else
+                    {
+                        $("#searchResultDiv").append('<h4>검색 결과</h4>\n' +
+                            '                                <table class="table table-hover">\n' +
+                            '                                    <thead>\n' +
+                            '                                    <tr>\n' +
+                            '                                        <th>\n' +
+                            '                                            아이디\n' +
+                            '                                        </th>\n' +
+                            '                                        <th>\n' +
+                            '                                            이름\n' +
+                            '                                        </th>\n' +
+                            '                                        <th>\n' +
+                            '                                            성별\n' +
+                            '                                        </th>\n' +
+                            '                                        <th>\n' +
+                            '                                            -\n' +
+                            '                                        </th>\n' +
+                            '                                    </tr>\n' +
+                            '                                    </thead>\n' +
+                            '                                    <tbody id="findTableBody">');
+                        json.forEach(function(user) {
+                            // console.log(user);
+                            $("#findTableBody").append('<tr>\n' +
+                                '                                            <td>\n' +
+                                user.userId +
+                                '                                            </td>\n' +
+                                '                                            <td>\n' +
+                                user.userName +
+                                '                                            </td>\n' +
+                                '                                            <td>\n' +
+                                user.userGender +
+                                '                                            </td>\n' +
+                                '                                            <td>\n' +
+                                '                                                <button onclick="location.href=\'/minihome/AddFriend?friendId='+user.userId+'\'" class="btn btn-mini btn-theme">친구요청</button>\n' +
+                                '                                            </td>\n' +
+                                '                                        </tr>');
+                        })
+
+                        console.log($("#searchResultDiv").html());
+                    }
+
+                })
+                .fail(function (xhr, status, errorThrown) {
+                    alert(errorThrown);
+                })
+        }
+
+        function resetFindFriendTable() {
+            $("#searchResultDiv").empty();
+        }
+
+    </script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -49,62 +121,17 @@
                 <div class="span6">
                     <h4>친구 검색</h4>
 
-                    <form class="form-search" method="get" action="/minihome/FindFriend">
+                    <div class="form-search" method="get" action="/minihome/FindFriend">
                         <input placeholder="아이디 또는 이름을 입력해주세요" type="text" class="input-medium search-query"
-                               name="friendId">
-                        <button type="submit" class="btn btn-square btn-theme">검색</button>
-                    </form>
+                               name="friendId" id="tfFindId">
+                        <button class="btn btn-square btn-theme" onclick="findFriendAjax()">검색</button>
+                    </div>
 
                 </div>
 
-                <c:if test="${requestScope.friendList ne null}">
-                    <div class="span6">
-                        <h4>검색 결과</h4>
-                        <c:choose>
-                            <c:when test="${requestScope.success eq 'f'}">
-                                <h3><strong>일치하는 정보가 없습니다.</strong></h3>
-                            </c:when>
-                            <c:otherwise>
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            아이디
-                                        </th>
-                                        <th>
-                                            이름
-                                        </th>
-                                        <th>
-                                            성별
-                                        </th>
-                                        <th>
-                                            -
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="friend" items="${requestScope.friendList}">
-                                        <tr>
-                                            <td>
-                                                ${friend.userId}
-                                            </td>
-                                            <td>
-                                                ${friend.userName}
-                                            </td>
-                                            <td>
-                                                ${friend.userGender}
-                                            </td>
-                                            <td>
-                                                <button onclick="location.href='/minihome/AddFriend?friendId=${friend.userId}'" class="btn btn-mini btn-theme">친구요청</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </c:otherwise>
-                        </c:choose>
+                    <div class="span6" id="searchResultDiv">
+
                     </div>
-                </c:if>
             </div>
 
         </div>
@@ -115,5 +142,8 @@
 
 <%@ include file="../include/footer.jsp" %>
 <%@ include file="../include/loadJS.jsp" %>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+
 </body>
 </html>

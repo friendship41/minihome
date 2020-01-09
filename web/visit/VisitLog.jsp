@@ -186,6 +186,7 @@
             $("#visitListt").append("<h4 class=\"heading\" id=\"visitListTitle\"><strong>${sessionScope.nowLocId}</strong><span>님의 방명록</span></h4>");
         }
 
+
     </script>
 </head>
 <body onload="getToServer()">

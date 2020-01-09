@@ -1,5 +1,6 @@
 package com.jsp.minihome.friend.servlet;
 
+import com.google.gson.Gson;
 import com.jsp.minihome.friend.service.FriendService;
 import com.jsp.minihome.member.vo.MemberVO;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/FindFriend")
@@ -30,17 +32,21 @@ public class FindFriend extends HttpServlet
 //        정상적으로 받아왔을때
         if(list != null)
         {
-            request.setAttribute("friendList", list);
-//            결과값이 없으면
-            if(list.size() == 0)
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("application/json");
+            Gson gson = new Gson();
+            String jsonData = gson.toJson(list);
+            System.out.println(jsonData);
+            PrintWriter out = response.getWriter();
+            try
             {
-                request.setAttribute("success", "f");
+                out.println(jsonData);
             }
-//            결과값이 있으면
-            else
+            finally
             {
-                request.setAttribute("success", "s");
+                out.close();
             }
+            return;
         }
 //        디비 에러 났을때
         else
