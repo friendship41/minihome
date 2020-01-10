@@ -55,7 +55,7 @@ public class FreeBoardDAO
         try {if(con!=null && !con.isClosed()){con.close();}}catch (SQLException e){}
     }
 
-    public void insertNewBoard1(FreeBoardVO freeBoardVO)
+    public void insertNewBoard(FreeBoardVO freeBoardVO)
     {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -65,7 +65,7 @@ public class FreeBoardDAO
         {
             con = this.getConnection();
 
-            String sql = "INSERT INTO MINIHOME_FREEBOARD VALUES (MINIHOME_FREEBOARD__NO_SEQ, ?,?,?,?,?,?,?,0,(SELECT MAX(REF)+1 FROM JAVALINE_BOARD1),0,0,SYSDATE,?)";
+            String sql = "INSERT INTO MINIHOME_FREEBOARD VALUES (MINIHOME_FREEBOARD__NO_SEQ.NEXTVAL, ?,?,?,?,?,?,?,0,(SELECT MAX(REF)+1 FROM JAVALINE_BOARD1),0,0,SYSDATE,?)";
 
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, freeBoardVO.getWriterId());
@@ -89,7 +89,7 @@ public class FreeBoardDAO
         }
         catch (SQLException e)
         {
-            System.out.println("FreeBoardDAO/insertNewBoard1: "+e.getMessage());
+            System.out.println("FreeBoardDAO/insertNewBoard: "+e.getMessage());
         }
         finally
         {

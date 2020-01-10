@@ -163,7 +163,9 @@
                                 </table>
 
                                 <div class="bottom-article">
-                                    <button class="btn btn-large btn-theme margintop10 pull-right" onclick="location.href='board/freeBoard/freeBoardForm.jsp'">글쓰기</button>
+                                    <c:if test="${sessionScope.id ne null}">
+                                        <button class="btn btn-large btn-theme margintop10 pull-right" onclick="location.href='/minihome/NewFreeBoard'">글쓰기</button>
+                                    </c:if>
                                 </div>
 
                             </div>

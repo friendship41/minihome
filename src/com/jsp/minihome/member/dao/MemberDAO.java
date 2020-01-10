@@ -148,7 +148,49 @@ public class MemberDAO
         }
         catch (SQLException e)
         {
-            System.out.println("MemberDAO/insertMember: "+e.getMessage());
+            System.out.println("MemberDAO/selectAllMember: "+e.getMessage());
+            return null;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+
+
+    public MemberVO selectSingleMember(String id)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try
+        {
+            con = this.getConnection();
+            String sql = "SELECT USER_NAME, USER_GENDER, USER_EMAIL, USER_PHONE, USER_CLASS, USER_STATE_MESSAGE, USER_TOTAL_VISIT, USER_TODAY_VISIT FROM MINIHOME_MEMBER WHERE USER_ID=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            MemberVO memberVO = new MemberVO();
+            if(rs.next())
+            {
+                memberVO.setUserId(id);
+                memberVO.setUserName(rs.getString("USER_NAME"));
+                memberVO.setUserGender(rs.getString("USER_GENDER"));
+                memberVO.setUserEmail(rs.getString("USER_EMAIL"));
+                memberVO.setUserPhone(rs.getString("USER_PHONE"));
+                memberVO.setUserClass(rs.getString("USER_CLASS"));
+                memberVO.setUserStateMessage(rs.getString("USER_STATE_MESSAGE"));
+                memberVO.setUserTotalVisit(rs.getInt("USER_TOTAL_VISIT"));
+                memberVO.setUserTodayVisit(rs.getInt("USER_TODAY_VISIT"));
+            }
+            return memberVO;
+        }
+        catch (SQLException e)
+        {
+            System.out.println("MemberDAO/selectSingleMember: "+e.getMessage());
             return null;
         }
         finally

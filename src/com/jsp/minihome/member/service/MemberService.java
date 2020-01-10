@@ -41,4 +41,10 @@ public class MemberService
         return memberDAO.insertMember(memberVO);
     }
 
+    public MemberVO getSingleMember(String id)
+    {
+        memberDAO = MemberDAO.getInstance();
+        return memberDAO.selectSingleMember(id);
+    }
+
 }

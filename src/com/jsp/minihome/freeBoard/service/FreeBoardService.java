@@ -20,4 +20,10 @@ public class FreeBoardService
             return freeBoardDAO.selectAllBoardList(startNum, endNum);
         }
     }
+
+    public void writeFreeBoard(FreeBoardVO freeBoardVO)
+    {
+        FreeBoardDAO freeBoardDAO = FreeBoardDAO.getInstance();
+        freeBoardDAO.insertNewBoard(freeBoardVO);
+    }
 }
