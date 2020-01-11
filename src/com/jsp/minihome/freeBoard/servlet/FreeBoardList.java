@@ -26,21 +26,40 @@ public class FreeBoardList extends HttpServlet
         request.setCharacterEncoding("utf-8");
         String nowPage = request.getParameter("nowPage");
 
-        int startNum=0;
-        int endNum=0;
+        int listSize = 10;
+        int blockSize = 5;
 
         if(nowPage == null || nowPage.equals(""))
         {
-            startNum = 1;
-            endNum = 10;
+            nowPage = "1";
         }
-
+        int nowPageInt = Integer.parseInt(nowPage);
+        int startNum = listSize*(nowPageInt-1)+1;
+        int endNum =nowPageInt*listSize;
 
         FreeBoardService freeBoardService = new FreeBoardService();
 
+        int cnt = freeBoardService.getFreeBoardCount();
+        cnt--;
         List<FreeBoardVO> list = freeBoardService.getFreeBoardList(startNum, endNum);
 
+
+        int blockCnt = (int)(cnt/listSize)+(cnt%listSize==0 ? 0:1);
+        int startBlockNum = ((int)((nowPageInt-1)/blockSize))*blockSize + 1;
+        int endBlockNum = startBlockNum+blockSize - 1;
+
+        if(blockCnt < endBlockNum)
+        {
+            endBlockNum = blockCnt;
+        }
+
+        request.setAttribute("startBlockNum",startBlockNum);
+        request.setAttribute("endBlockNum", endBlockNum);
+        request.setAttribute("blockCnt", blockCnt);
+        request.setAttribute("nowPage", nowPage);
+        request.setAttribute("freeBoardCnt", cnt);
         request.setAttribute("freeBoardLists", list);
+
         RequestDispatcher disp = request.getRequestDispatcher("/board/freeBoard/freeBoardListPage.jsp");
         disp.forward(request, response);
     }

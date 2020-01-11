@@ -7,18 +7,16 @@ import java.util.List;
 
 public class FreeBoardService
 {
+    public int getFreeBoardCount()
+    {
+        FreeBoardDAO freeBoardDAO = FreeBoardDAO.getInstance();
+        return freeBoardDAO.selectBoardCount();
+    }
+
     public List<FreeBoardVO> getFreeBoardList(int startNum, int endNum)
     {
         FreeBoardDAO freeBoardDAO = FreeBoardDAO.getInstance();
-        int cnt = freeBoardDAO.selectBoardCount();
-        if(cnt < 0)
-        {
-            return null;
-        }
-        else
-        {
-            return freeBoardDAO.selectAllBoardList(startNum, endNum);
-        }
+        return freeBoardDAO.selectAllBoardList(startNum, endNum);
     }
 
     public void writeFreeBoard(FreeBoardVO freeBoardVO)

@@ -172,10 +172,17 @@
                         </div>
                     </article>
                     <div id="pagination">
-                        <span class="all">Page 1 of 3</span>
-                        <span class="current">1</span>
-                        <a href="#" class="inactive">2</a>
-                        <a href="#" class="inactive">3</a>
+                        <span class="all">Page ${requestScope.nowPage} of ${requestScope.blockCnt}</span>
+                        <c:forEach begin="${requestScope.startBlockNum}" end="${requestScope.endBlockNum}" step="1" varStatus="i">
+                            <c:choose>
+                                <c:when test="${i.count eq requestScope.nowPage}">
+                                    <span class="current">${i.count}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/minihome/FreeBoardList?nowPage=${i.count}" class="inactive">${i.count}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

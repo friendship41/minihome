@@ -65,7 +65,7 @@ public class FreeBoardDAO
         {
             con = this.getConnection();
 
-            String sql = "INSERT INTO MINIHOME_FREEBOARD VALUES (MINIHOME_FREEBOARD__NO_SEQ.NEXTVAL, ?,?,?,?,?,?,?,0,(SELECT MAX(REF)+1 FROM JAVALINE_BOARD1),0,0,SYSDATE,?)";
+            String sql = "INSERT INTO MINIHOME_FREEBOARD VALUES (MINIHOME_FREEBOARD__NO_SEQ.NEXTVAL, ?,?,?,?,?,?,?,0,(SELECT MAX(REF)+1 FROM MINIHOME_FREEBOARD),0,0,SYSDATE,?)";
 
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, freeBoardVO.getWriterId());
