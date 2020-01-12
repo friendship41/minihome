@@ -294,89 +294,92 @@ public class FreeBoardDAO
 //
 //
 //
-//
-//
-//    public void updateReadCnt(int no)
-//    {
-//        Connection con = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rs = null;
-//
-//        try
-//        {
-//            con = this.getConnection();
-//
-//            String sql = "UPDATE JAVALINE_BOARD1 SET READCNT=READCNT+1 WHERE NO=?";
-//
-//            pstmt = con.prepareStatement(sql);
-//            pstmt.setInt(1, no);
-//            pstmt.executeUpdate();
-//
-//        }
-//        catch (SQLException e)
-//        {
-//            System.out.println("Board1DAO/updateReadCnt: "+e.getMessage());
-//        }
-//        finally
-//        {
-//            this.disConnect(con,pstmt,rs);
-//        }
-//    }
-//
-//
-//
-//
-//    public Board1VO selectSingleBoard1(int no)
-//    {
-//        Connection con = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rs = null;
-//        Board1VO board1VO = new Board1VO();
-//
-//        try
-//        {
-//            con = this.getConnection();
-//
-//            String sql = "SELECT WRITER, EMAIL, SUBJECT, READCNT, REF, STEP, DEPTH, TO_CHAR(REGDATE,'YYYY/MM/DD') REGDATE, CONTENT, IP FROM JAVALINE_BOARD1 WHERE NO=?";
-//
-//            pstmt = con.prepareStatement(sql);
-//            pstmt.setInt(1, no);
-//            rs = pstmt.executeQuery();
-//
-//            if (rs.next())
-//            {
-//                board1VO.setNo(no);
-//                board1VO.setWriter(rs.getString("WRITER"));
-//                board1VO.setEmail(rs.getString("EMAIL"));
-//                board1VO.setSubject(rs.getString("SUBJECT"));
-//                board1VO.setReadcnt(rs.getInt("READCNT"));
-//                board1VO.setRef(rs.getInt("REF"));
-//                board1VO.setStep(rs.getInt("STEP"));
-//                board1VO.setDepth(rs.getInt("DEPTH"));
-//                board1VO.setRegdate(rs.getString("REGDATE"));
-//                board1VO.setContent(rs.getString("CONTENT"));
-//                board1VO.setIp(rs.getString("IP"));
-//
-//                return board1VO;
-//            }
-//            else
-//            {
-//                return null;
-//            }
-//
-//        }
-//        catch (SQLException e)
-//        {
-//            System.out.println("Board1DAO/selectSingleBoard1: "+e.getMessage());
-//            return null;
-//        }
-//        finally
-//        {
-//            this.disConnect(con,pstmt,rs);
-//        }
-//    }
-//
-//
+
+
+    public void updateReadCnt(int no)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try
+        {
+            con = this.getConnection();
+
+            String sql = "UPDATE MINIHOME_FREEBOARD SET READCNT=READCNT+1 WHERE NO=?";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, no);
+            pstmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("FreeBoardDAO/updateReadCnt: "+e.getMessage());
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+
+
+
+    public FreeBoardVO selectSingleFreeBoard(int no)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        FreeBoardVO freeBoardVO = new FreeBoardVO();
+
+        try
+        {
+            con = this.getConnection();
+
+            String sql = "SELECT NO, WRITER_ID, WRITER_NAME, EMAIL, SUBJECT, CATEGORIES, CONTENT, IMG_LOC, READCNT, REF, STEP, DEPTH, TO_CHAR(REGDATE,'YYYY/MM/DD') REGDATE, IP FROM MINIHOME_FREEBOARD WHERE NO=?";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, no);
+            rs = pstmt.executeQuery();
+
+            if (rs.next())
+            {
+                freeBoardVO.setNo(no);
+                freeBoardVO.setWriterId(rs.getString("WRITER_ID"));
+                freeBoardVO.setWriterName(rs.getString("WRITER_NAME"));
+                freeBoardVO.setEmail(rs.getString("EMAIL"));
+                freeBoardVO.setSubject(rs.getString("SUBJECT"));
+                freeBoardVO.setCategories(rs.getString("CATEGORIES"));
+                freeBoardVO.setContent(rs.getString("CONTENT"));
+                freeBoardVO.setImgLoc(rs.getString("IMG_LOC"));
+                freeBoardVO.setReadcnt(rs.getInt("READCNT"));
+                freeBoardVO.setRef(rs.getInt("REF"));
+                freeBoardVO.setStep(rs.getInt("STEP"));
+                freeBoardVO.setDepth(rs.getInt("DEPTH"));
+                freeBoardVO.setRegdate(rs.getString("REGDATE"));
+                freeBoardVO.setIp(rs.getString("IP"));
+
+                return freeBoardVO;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("FreeBoardDAO/selectSingleFreeBoard: "+e.getMessage());
+            return null;
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+
 //    public void updateSingleBoard(Board1VO board1VO)
 //    {
 //        Connection con = null;

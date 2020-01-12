@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ page import="com.jsp.minihome.freeBoard.vo.FreeBoardVO, java.util.List" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -15,6 +14,13 @@
     <meta charset="utf-8">
     <title>자유게시판</title>
     <%@ include file="../../include/headLink.jsp" %>
+    <script>
+        function goToBoard_read(trObj) {
+            var url = "/minihome/ReadFreeBoard?writerId="+trObj.id;
+            console.log(trObj.id);
+            location.href=url;
+        }
+    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -99,7 +105,7 @@
                                         <h3>자유 게시판</h3>
                                     </div>
                                 </div>
-                                <table class="table">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>
@@ -126,17 +132,17 @@
                                     <c:forEach var="arti" items="${requestScope.freeBoardLists}">
                                         <c:choose>
                                             <c:when test="${arti.categories eq '공지'}">
-                                                <tr class="error">
+                                                <tr id="${arti.writerId}&no=${arti.no}" class="error" onclick="javascript:goToBoard_read(this)">
                                             </c:when>
                                             <c:when test="${arti.categories eq '답변'}">
-                                                <tr class="success">
+                                                <tr id="${arti.writerId}&no=${arti.no}" class="success" onclick="javascript:goToBoard_read(this)">
                                             </c:when>
 
                                             <c:when test="${arti.categories eq '짤'}">
-                                                <tr class="info">
+                                                <tr id="${arti.writerId}&no=${arti.no}" class="info" onclick="javascript:goToBoard_read(this)">
                                             </c:when>
                                             <c:otherwise>
-                                                <tr class="warning">
+                                                <tr id="${arti.writerId}&no=${arti.no}" class="warning" onclick="javascript:goToBoard_read(this)">
                                             </c:otherwise>
                                         </c:choose>
                                             <td>
