@@ -410,35 +410,35 @@ public class FreeBoardDAO
 //        }
 //    }
 //
-//
-//    public void deleteSingleBoard(int no)
-//    {
-//        Connection con = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rs = null;
-//
-//        try
-//        {
-//            con = this.getConnection();
-//
-//            String sql = "DELETE FROM JAVALINE_BOARD1 WHERE NO=?";
-//
-//            pstmt = con.prepareStatement(sql);
-//            pstmt.setInt(1, no);
-//            pstmt.executeUpdate();
-//
-//        }
-//        catch (SQLException e)
-//        {
-//            System.out.println("Board1DAO/deleteSingleBoard: "+e.getMessage());
-//        }
-//        finally
-//        {
-//            this.disConnect(con,pstmt,rs);
-//        }
-//    }
-//
-//
+
+    public void deleteSingleBoard(int no)
+    {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try
+        {
+            con = this.getConnection();
+
+            String sql = "DELETE FROM MINIHOME_FREEBOARD WHERE NO=?";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, no);
+            pstmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("FreeBoardDAO/deleteSingleBoard: "+e.getMessage());
+        }
+        finally
+        {
+            this.disConnect(con,pstmt,rs);
+        }
+    }
+
+
 //
 //    public void updateRefStepDepth(Board1VO board1VO)
 //    {

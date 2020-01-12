@@ -34,6 +34,12 @@ public class FreeBoardService
         return freeBoardDAO.selectSingleFreeBoard(no);
     }
 
+    public void deleteFreeBoard(int no)
+    {
+        FreeBoardDAO freeBoardDAO = FreeBoardDAO.getInstance();
+        freeBoardDAO.deleteSingleBoard(no);
+    }
+
     public List<FreeBoardCommentsVO> getComments(int no)
     {
         FreeBoardCommentsDAO freeBoardCommentsDAO = FreeBoardCommentsDAO.getInstance();

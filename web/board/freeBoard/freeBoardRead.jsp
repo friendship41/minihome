@@ -210,6 +210,10 @@
                                 <div class="bottom-article">
                                     <ul class="meta-post">
                                         <li><i class="icon-user"></i><a href="#"> Admin</a></li>
+                                        <c:if test="${requestScope.freeBoardVO.writerId eq requestScope.myInfo.userId}">
+                                            <li><button class="btn btn-mini btn-theme">수정</button></li>
+                                            <li><button class="btn btn-mini btn-theme" onclick="location.href='/minihome/DeleteFreeBoard?no=${requestScope.freeBoardVO.no}'">삭제</button></li>
+                                        </c:if>
                                     </ul>
                                 </div>
                             </div>
@@ -229,7 +233,7 @@
 
 
                     <c:if test="${requestScope.myInfo ne null}">
-                        <div id="commentform" name="comment-form">
+                        <form id="commentform" name="comment-form">
 
                             <div class="row">
                                 <div class="span8">
@@ -245,12 +249,10 @@
                                     <p>
                                         <textarea id="taComment" rows="12" class="input-block-level" placeholder="*Your comment here"></textarea>
                                     </p>
-                                    <p>
-                                        <button class="btn btn-theme margintop10" onclick="writeComment()">댓글 남기기</button>
-                                    </p>
                                 </div>
                             </div>
-                        </div>
+                        </form>
+                        <button class="btn btn-theme" onclick="writeComment()">댓글 남기기</button>
                     </c:if>
 
                 </div>
